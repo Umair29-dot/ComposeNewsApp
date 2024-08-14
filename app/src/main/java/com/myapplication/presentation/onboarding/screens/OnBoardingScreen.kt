@@ -26,16 +26,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.myapplication.presentation.Dimens
 import com.myapplication.presentation.onboarding.components.CompButton
 import com.myapplication.presentation.onboarding.components.CompOnBoarding
 import com.myapplication.presentation.onboarding.components.CompPageIndicator
 import com.myapplication.presentation.onboarding.pages
+import com.myapplication.presentation.onboarding.viewmodel.OnBoardingViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(viewModel: OnBoardingViewModel) {
+
 	val pages = pages
 	val pagerState = rememberPagerState(initialPage = 0) {
 		pages.size
@@ -90,7 +93,7 @@ fun OnBoardingScreen() {
 
 					CompButton(title = buttonState.value[1]) {
 						if (pagerState.currentPage == pages.size - 1) {
-							//Navigate to another page
+							viewModel.saveAppEntry()
 						} else {
 							scope.launch {
 								pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
@@ -119,5 +122,5 @@ private fun BackButton(title: String, onClick: () -> Unit = {}) {
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-	OnBoardingScreen()
+	OnBoardingScreen(viewModel = hiltViewModel())
 }

@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class LocalUserManagerImplementation(private val context: Context): LocalUserManager {
-
 	override suspend fun saveAppEntry() {
 		context.dataStore.edit {
 			it[PreferencesKey.APP_PREFERENCES_KEY] = true
@@ -25,7 +24,6 @@ class LocalUserManagerImplementation(private val context: Context): LocalUserMan
 			it[PreferencesKey.APP_PREFERENCES_KEY] ?: false
 		}
 	}
-
 }
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = USER_SETTINGS)
