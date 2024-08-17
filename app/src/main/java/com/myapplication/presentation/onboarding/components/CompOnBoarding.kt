@@ -3,7 +3,6 @@ package com.myapplication.presentation.onboarding.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -13,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,19 +31,19 @@ fun CompOnBoarding(
 			modifier = Modifier.height(450.dp)
 		)
 
-		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
+		Spacer(modifier = Modifier.height(Dimens.MediumPadding2))
 
 		Text(
 			text = page.title,
 			style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-			modifier = Modifier.padding(horizontal = Dimens.MediumPadding2),
+			modifier = Modifier.padding(horizontal = Dimens.MediumPadding3),
 			color = colorResource(id = R.color.black)
 		)
 
 		Text(
 			text = page.description,
 			style = MaterialTheme.typography.bodyMedium,
-			modifier = Modifier.padding(horizontal = Dimens.MediumPadding2)
+			modifier = Modifier.padding(horizontal = Dimens.MediumPadding3)
 		)
 	}//: Column
 }

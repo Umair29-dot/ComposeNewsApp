@@ -18,7 +18,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -63,11 +62,11 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel) {
 				CompOnBoarding(page = pages[it])
 			}
 
-			Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
+			Spacer(modifier = Modifier.height(Dimens.MediumPadding2))
 
 			Row(
 				modifier = Modifier
-					.padding(horizontal = Dimens.MediumPadding3)
+					.padding(horizontal = Dimens.MediumPadding4)
 					.fillMaxWidth(),
 				verticalAlignment = Alignment.CenterVertically,
 				horizontalArrangement = Arrangement.SpaceBetween
