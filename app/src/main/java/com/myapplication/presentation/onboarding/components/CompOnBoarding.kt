@@ -12,12 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.myapplication.R
 import com.myapplication.presentation.Dimens
-import com.myapplication.presentation.onboarding.Page
+import com.myapplication.domain.model.onboarding.Page
 
 @Composable
 fun CompOnBoarding(
@@ -26,7 +27,7 @@ fun CompOnBoarding(
 	Column {
 		Image(
 			painter = painterResource(id = page.image),
-			contentDescription = "An Image",
+			contentDescription = stringResource(R.string.an_image),
 			contentScale = ContentScale.Crop,
 			modifier = Modifier.height(450.dp)
 		)
@@ -35,7 +36,7 @@ fun CompOnBoarding(
 
 		Text(
 			text = page.title,
-			style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+			style = MaterialTheme.typography.headlineMedium,
 			modifier = Modifier.padding(horizontal = Dimens.MediumPadding3),
 			color = colorResource(id = R.color.black)
 		)
@@ -53,9 +54,9 @@ fun CompOnBoarding(
 private fun Preview() {
 	CompOnBoarding(
 		page = Page(
-		title = "Lorem Ipsum is simply dummy",
-		description = "Lorem ipsum is a dummy text of the printing and industry",
-		image = R.drawable.onboarding1
-	    )
+			title = "Wellness and Medical News",
+			description = "Discover essential health news, from medical breakthroughs to wellness tips, ensuring you stay informed about your health and well-being",
+			image = R.drawable.onboarding2
+		)
 	)
 }

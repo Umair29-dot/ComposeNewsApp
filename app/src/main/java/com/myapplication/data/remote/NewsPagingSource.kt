@@ -2,7 +2,8 @@ package com.myapplication.data.remote
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.myapplication.domain.nmodel.Article
+import com.myapplication.BuildConfig
+import com.myapplication.domain.model.news.newsapi.Article
 import com.myapplication.util.Constants
 
 class NewsPagingSource(
@@ -14,12 +15,16 @@ class NewsPagingSource(
 
 	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
 		val page = params.key ?: 1
+
 		return try {
-			val newsResponse = newsApi.getNews(page = page, sources = sources, apiKey = Constants.Api_KEY)
+			val newsResponse = newsApi.getNews(page = page, sources = sources, apiKey = BuildConfig.Api_KEY)
 			totalNewsCount += newsResponse.articles.size
 			val articles = newsResponse.articles.distinctBy { it.title } //remove duplicate data from list
-			LoadResult.Page(data = articles, nextKey = if(totalNewsCount == newsResponse.totalResults) null else page + 1,
-			prevKey = null)
+			LoadResult.Page(
+				data = articles,
+				nextKey = if(totalNewsCount == newsResponse.totalResults) null else page + 1,
+				prevKey = null
+			)
 		} catch (e: Exception) {
 			e.printStackTrace()
 			LoadResult.Error(throwable = e)
