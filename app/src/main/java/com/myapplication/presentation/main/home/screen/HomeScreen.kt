@@ -30,7 +30,7 @@ import com.myapplication.presentation.main.common.TitleSection
 import com.myapplication.presentation.main.home.components.HorizontalCarousel
 import com.myapplication.presentation.main.home.viewmodel.HomeViewModel
 import com.myapplication.presentation.navgraph.Route
-import com.myapplication.presentation.onboarding.components.PageIndicator
+import com.myapplication.presentation.onboarding.components.CompPageIndicator
 
 @Composable
 fun HomeScreen(
@@ -63,7 +63,7 @@ fun HomeScreen(
 
 		HorizontalCarousel(gArticles = gArticles, pagerState)
 
-		PageIndicator(
+		CompPageIndicator(
 			pageSize = pagerState.pageCount,
 			selectedPage = pagerState.currentPage,
 			horizontal = Arrangement.Center,

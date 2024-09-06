@@ -28,7 +28,7 @@ import com.myapplication.presentation.main.search.viewmodel.SearchViewModel
 import com.myapplication.presentation.navgraph.Route
 
 @Composable
-fun NewsNavigator() {
+fun NewsNavigatorScreen() {
 
 	val sharedViewModel: SharedViewModel = viewModel()
 	val bottomNavItems = remember {

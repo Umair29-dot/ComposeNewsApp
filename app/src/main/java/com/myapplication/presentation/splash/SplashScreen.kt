@@ -132,13 +132,17 @@ private fun navigate(
 	navController: NavController
 ) {
 	if (viewModel.onBoardingCondition.value) {
-		navController.navigate(Route.NewsNavigatorScreen.route) {
-			popUpTo(Route.AppStartNavigation.route) {
+		navController.navigate(Route.NewsNavigation.route) {
+			this.popUpTo(Route.AppStartNavigation.route) {
 				inclusive = true
 			}
 		}
 	} else {
-		navController.navigate(Route.OnBoardingScreen.route)
+		navController.navigate(Route.OnBoardingScreen.route) {
+			this.popUpTo(Route.AppStartNavigation.route) {
+				inclusive = true
+			}
+		}
 	}
 }
 

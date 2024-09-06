@@ -1,5 +1,7 @@
 package com.myapplication.presentation.onboarding.screen
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,21 +24,26 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.myapplication.presentation.Dimens
 import com.myapplication.presentation.onboarding.components.CompButton
 import com.myapplication.presentation.onboarding.components.CompOnBoarding
-import com.myapplication.presentation.onboarding.components.PageIndicator
+import com.myapplication.presentation.onboarding.components.CompPageIndicator
 import com.myapplication.domain.model.onboarding.pages
+import com.myapplication.presentation.navgraph.Route
 import com.myapplication.presentation.onboarding.viewmodel.OnBoardingViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun OnBoardingScreen(viewModel: OnBoardingViewModel) {
+fun OnBoardingScreen(viewModel: OnBoardingViewModel, navController: NavController) {
 
+	val context = LocalContext.current
 	val pages = pages
 	val pagerState = rememberPagerState(initialPage = 0) {
 		pages.size
@@ -70,7 +77,7 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel) {
 				verticalAlignment = Alignment.CenterVertically,
 				horizontalArrangement = Arrangement.SpaceBetween
 			) {
-				PageIndicator(
+				CompPageIndicator(
 					pageSize = pages.size,
 					selectedPage = pagerState.currentPage,
 					horizontal = Arrangement.Start
@@ -95,7 +102,20 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel) {
 
 					CompButton(title = buttonState.value[1]) {
 						if (pagerState.currentPage == pages.size - 1) {
-							viewModel.saveAppEntry()
+							viewModel.saveAppEntry(onResult = {
+								when(it) {
+									true -> {
+										navController.navigate(Route.NewsNavigation.route) {
+											this.popUpTo(Route.AppStartNavigation.route) {
+												inclusive = true
+											}
+										}
+									}
+									false -> {
+										Toast.makeText(context, "Something went wrong. Try later", Toast.LENGTH_SHORT).show()
+									}
+								}
+							})
 						} else {
 							scope.launch {
 								pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
@@ -124,5 +144,8 @@ private fun BackButton(title: String, onClick: () -> Unit = {}) {
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-	OnBoardingScreen(viewModel = hiltViewModel())
+	OnBoardingScreen(
+		viewModel = hiltViewModel(),
+		navController = rememberNavController()
+	)
 }
