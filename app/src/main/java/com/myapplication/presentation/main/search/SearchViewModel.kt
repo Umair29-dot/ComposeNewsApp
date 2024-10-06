@@ -1,4 +1,4 @@
-package com.myapplication.presentation.main.search.viewmodel
+package com.myapplication.presentation.main.search
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

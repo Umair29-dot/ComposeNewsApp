@@ -33,4 +33,6 @@ object Dimens {
 	val ArticleImageHeight = 370.dp
 
 	val lottieSize = 250.dp
+
+	val searchCardElevation = 1.dp
 }

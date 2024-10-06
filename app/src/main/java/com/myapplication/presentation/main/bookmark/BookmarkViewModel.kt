@@ -1,4 +1,4 @@
-package com.myapplication.presentation.main.bookmark.viewmodel
+package com.myapplication.presentation.main.bookmark
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,17 +19,17 @@ class BookmarkViewModel @Inject constructor(
 	private val _articles = MutableStateFlow<List<Article>>(emptyList())
 	val articles: StateFlow<List<Article>> = _articles.asStateFlow()
 
-	init {
+	/*init {
 		getArticles()
-	}
+	}*/
 
-	private fun getArticles() {
+	/*private fun getArticles() {
 		viewModelScope.launch {
 			newsUseCases.getArticles().collect {
 				_articles.value = it
 			}
 		}
-	}
+	}*/
 
 	fun deleteArticle(article: Article) {
 		viewModelScope.launch {

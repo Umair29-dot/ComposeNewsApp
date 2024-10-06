@@ -15,7 +15,8 @@ interface NewsRepository {
 	suspend fun getGNews(): List<GArticle>
 
 	//Database
-	suspend fun upsertArticle(article: Article)
+	suspend fun upsertArticle(article: Article): Long
+	suspend fun upsertGArticle(article: GArticle): Long
 	suspend fun deleteArticle(article: Article)
 	fun getArticles(): Flow<List<Article>>
 }

@@ -51,12 +51,16 @@ class NewsRepositoryImplementation(
 		return response.articles
 	}
 
-	override suspend fun upsertArticle(article: Article) {
-		newsDao.upsert(article)
+	override suspend fun upsertArticle(article: Article): Long {
+		return newsDao.upsertArticle(article)
+	}
+
+	override suspend fun upsertGArticle(article: GArticle): Long {
+		return newsDao.upsertGArticle(article)
 	}
 
 	override suspend fun deleteArticle(article: Article) {
-		newsDao.delete(article)
+		newsDao.deleteArticle(article)
 	}
 
 	override fun getArticles(): Flow<List<Article>> {

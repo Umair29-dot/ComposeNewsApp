@@ -22,6 +22,7 @@ import com.myapplication.domain.usecases.news.GetNews
 import com.myapplication.domain.usecases.news.GetSearchNews
 import com.myapplication.domain.usecases.news.NewsUseCases
 import com.myapplication.domain.usecases.news.UpsertArticle
+import com.myapplication.domain.usecases.news.UpsertGArticle
 import com.myapplication.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -70,14 +71,15 @@ object AppModule {
 
 	@Singleton
 	@Provides
-	fun provideNewsUseCases(newsRepository: NewsRepository) =
+	fun provideNewsUseCases(newsRepository: NewsRepository): NewsUseCases =
 		NewsUseCases(
 			getNews = GetNews(newsRepository),
 			getSearchNews = GetSearchNews(newsRepository),
 			upsertArticle = UpsertArticle(newsRepository),
 			deleteArticle = DeleteArticle(newsRepository),
 			getArticles = GetArticles(newsRepository),
-			getGNews = GetGNews(newsRepository)
+			getGNews = GetGNews(newsRepository),
+			upsertGArticle = UpsertGArticle(newsRepository)
 		)
 
 	@Singleton

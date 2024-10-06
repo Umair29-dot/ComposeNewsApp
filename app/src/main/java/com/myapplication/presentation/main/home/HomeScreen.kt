@@ -1,4 +1,4 @@
-package com.myapplication.presentation.main.home.screen
+package com.myapplication.presentation.main.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,6 @@ import com.myapplication.presentation.SharedViewModel
 import com.myapplication.presentation.main.common.ArticleList
 import com.myapplication.presentation.main.common.TitleSection
 import com.myapplication.presentation.main.home.components.HorizontalCarousel
-import com.myapplication.presentation.main.home.viewmodel.HomeViewModel
 import com.myapplication.presentation.navgraph.Route
 import com.myapplication.presentation.onboarding.components.CompPageIndicator
 
@@ -61,7 +60,10 @@ fun HomeScreen(
 
 		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
-		HorizontalCarousel(gArticles = gArticles, pagerState)
+		HorizontalCarousel(gArticles = gArticles, pagerState = pagerState, onClick = {
+			sharedViewModel.setArticle(it)
+			navController.navigate(Route.DetailScreen.route)
+		})
 
 		CompPageIndicator(
 			pageSize = pagerState.pageCount,

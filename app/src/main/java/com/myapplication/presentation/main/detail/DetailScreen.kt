@@ -1,7 +1,9 @@
-package com.myapplication.presentation.main.detail.screen
+package com.myapplication.presentation.main.detail
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +20,11 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -26,52 +33,57 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.myapplication.domain.model.news.CommonArticle
+import com.myapplication.domain.model.news.gnews.GArticle
 import com.myapplication.domain.model.news.newsapi.Article
 import com.myapplication.presentation.Dimens
 import com.myapplication.presentation.main.common.ErrorView
 import com.myapplication.presentation.main.common.BackNavigation
 import com.myapplication.presentation.main.detail.components.DetailOptions
+import com.myapplication.presentation.main.search.SearchViewModel
 import com.myapplication.presentation.navgraph.Route
+import kotlinx.coroutines.flow.collectLatest
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
-	article: Article?,
-	navController: NavController
+	article: CommonArticle?,
+	navController: NavController,
+	viewModel: DetailViewModel
 ) {
 	val context = LocalContext.current
-	val modalBottomSheetState = rememberModalBottomSheetState()
 
 	if (article != null) {
 		DetailScreenContent(
 			article = article,
 			navController = navController,
 			context = context,
-			sheetState = modalBottomSheetState
+			viewModel = viewModel
 		)
 	} else {
 		ErrorView()
 	}
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DetailScreenContent(
-	article: Article,
+	article: CommonArticle,
 	navController: NavController,
 	context: Context,
-	sheetState: SheetState
+	viewModel: DetailViewModel
 ) {
 	Box(
 		modifier = Modifier
 			.fillMaxSize()
 	) {
 		AsyncImage(
-			model = ImageRequest.Builder(context).data(article.urlToImage).build(),
+			model = ImageRequest.Builder(context).data(article.image ?: "").build(),
 			contentDescription = null,
 			modifier = Modifier
 				.fillMaxWidth()
@@ -106,11 +118,11 @@ private fun DetailScreenContent(
 						navController.navigate(Route.WebViewScreen.route)
 					},
 					onBookmarkClick = {
-						saveArticle(article)
+						viewModel.saveArticle(article)
 					},
 					onShareClick = {
 						Intent(Intent.ACTION_SEND).also {
-							it.putExtra(Intent.EXTRA_TEXT, article.url ?: "")
+							it.putExtra(Intent.EXTRA_TEXT, article.url)
 							it.type = "text/plain"
 							if (it.resolveActivity(context.packageManager) != null) {
 								context.startActivity(it)
@@ -125,7 +137,7 @@ private fun DetailScreenContent(
 					modifier = Modifier.padding(all = 10.dp)
 				) {
 					Text(
-						text = article?.source?.name ?: "",
+						text = article?.getArticleSource()?.name ?: "",
 						color = Color.White,
 						modifier = Modifier.padding(8.dp)
 					)
@@ -155,11 +167,15 @@ private fun DetailScreenContent(
 				)
 			}//: Card
 		}
+
+		LaunchedEffect(true) {
+			viewModel.result.collectLatest {
+				if (it != -1L) {
+					Toast.makeText(context, "Article Saved", Toast.LENGTH_SHORT).show()
+				}
+			}
+		}
 	}//: Box
-}
-
-private fun saveArticle(article: Article) {
-
 }
 
 @Preview(showBackground = true)
@@ -176,6 +192,7 @@ private fun Preview() {
 			url = "www.google.com",
 			urlToImage = "https://i-invdn-com.investing.com/news/indicatornews_4_800x533_L_1413112066.jpg"
 		),
-		navController = rememberNavController()
+		navController = rememberNavController(),
+		viewModel = hiltViewModel()
 	)
 }

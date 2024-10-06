@@ -1,17 +1,25 @@
-package com.myapplication.presentation.main.search.screen
+package com.myapplication.presentation.main.search
 
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,11 +32,12 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.myapplication.domain.model.news.newsapi.Article
 import com.myapplication.presentation.Dimens
 import com.myapplication.presentation.SharedViewModel
+import com.myapplication.presentation.main.common.ArticleCard
 import com.myapplication.presentation.main.common.ArticleList
 import com.myapplication.presentation.main.common.TitleSection
 import com.myapplication.presentation.main.search.components.CategoriesList
 import com.myapplication.presentation.main.search.components.SearchBar
-import com.myapplication.presentation.main.search.viewmodel.SearchViewModel
+import com.myapplication.presentation.main.search.components.SearchListItem
 import com.myapplication.presentation.navgraph.Route
 
 @Composable
@@ -42,6 +51,7 @@ fun SearchScreen(
 	var searchValue = remember {
 		mutableStateOf("")
 	}
+	val density = LocalDensity.current
 
 	Column(
 		modifier = Modifier
@@ -79,13 +89,23 @@ fun SearchScreen(
 
 		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
-		ArticleList(
+		LazyColumn(
+			modifier = Modifier.fillMaxSize(),
+			contentPadding = PaddingValues(all = Dimens.SmallPadding1),
+		) {
+			items(count = articles.itemCount) {
+				articles[it]?.let {
+					SearchListItem(article = it)
+				}
+			}
+		}
+		/*ArticleList(
 			articles = articles,
 			onClick = {
 				sharedViewModel.setArticle(it)
 				navController.navigate(Route.DetailScreen.route)
 			}
-		)
+		)*/
 	}//: Column
 }
 

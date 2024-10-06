@@ -1,4 +1,4 @@
-package com.myapplication.presentation.main.detail.screen
+package com.myapplication.presentation.main.detail
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

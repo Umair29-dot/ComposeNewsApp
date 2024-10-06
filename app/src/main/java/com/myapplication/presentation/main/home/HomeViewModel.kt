@@ -1,4 +1,4 @@
-package com.myapplication.presentation.main.home.viewmodel
+package com.myapplication.presentation.main.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,6 @@ import com.myapplication.domain.model.news.newsapi.Article
 import com.myapplication.domain.usecases.news.NewsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject

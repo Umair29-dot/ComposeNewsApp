@@ -1,4 +1,4 @@
-package com.myapplication.presentation.main.bookmark.screen
+package com.myapplication.presentation.main.bookmark
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +14,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.myapplication.presentation.Dimens
-import com.myapplication.presentation.main.bookmark.viewmodel.BookmarkViewModel
 import com.myapplication.presentation.main.common.ArticleList
 import com.myapplication.presentation.main.common.TitleSection
 import com.myapplication.presentation.navgraph.Route
@@ -29,7 +28,7 @@ fun BookmarkScreen(
 			.fillMaxSize()
 	) {
 
-		val articles = viewModel.articles.collectAsState().value
+		//val articles = viewModel.articles.collectAsState().value
 
 		Spacer(modifier = Modifier.height(Dimens.LargePadding2))
 
@@ -41,12 +40,12 @@ fun BookmarkScreen(
 
 		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
-		ArticleList(
+		/*ArticleList(
 			articles = articles,
 			onClick = {
 				navController.navigate(Route.DetailScreen.route)
 			}
-		)
+		)*/
 	}//: Surface
 }
 

@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.myapplication.domain.model.news.gnews.GArticle
 import com.myapplication.domain.model.news.newsapi.Article
 import kotlinx.coroutines.flow.Flow
 
@@ -12,12 +13,22 @@ import kotlinx.coroutines.flow.Flow
 interface NewsDao {
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
-	suspend fun upsert(article: Article)
+	suspend fun upsertArticle(article: Article): Long
 
 	@Delete
-	suspend fun delete(article: Article)
+	suspend fun deleteArticle(article: Article)
 
 	@Query("SELECT * FROM Article")
 	fun getArticles(): Flow<List<Article>>
 
+
+	//GNews
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	suspend fun upsertGArticle(article: GArticle): Long
+
+	@Delete
+	suspend fun deleteGArticle(article: GArticle)
+
+	@Query("SELECT * FROM GArticle")
+	fun getGArticles(): Flow<List<GArticle>>
 }

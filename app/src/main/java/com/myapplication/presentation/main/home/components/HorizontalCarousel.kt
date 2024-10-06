@@ -1,6 +1,7 @@
 package com.myapplication.presentation.main.home.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +33,11 @@ import com.myapplication.domain.model.news.gnews.GArticle
 import com.myapplication.domain.model.onboarding.pages
 
 @Composable
-fun HorizontalCarousel(gArticles: List<GArticle>, pagerState: PagerState) {
+fun HorizontalCarousel(
+	gArticles: List<GArticle>,
+	pagerState: PagerState,
+	onClick: (GArticle) -> Unit
+) {
 
 	HorizontalPager(
 		modifier = Modifier
@@ -40,50 +45,50 @@ fun HorizontalCarousel(gArticles: List<GArticle>, pagerState: PagerState) {
 			.height(250.dp),
 		state = pagerState
 	) {
-		CardView(article = gArticles[it])
+		val article = gArticles[it]
+
+		Card(
+			modifier = Modifier
+				.fillMaxWidth()
+				.height(230.dp)
+				.padding(10.dp)
+				.clickable {
+						   onClick(article)
+				},
+			shape = RoundedCornerShape(corner = CornerSize(15.dp))
+		) {
+			Box(contentAlignment = Alignment.BottomStart) {
+				AsyncImage(
+					model = ImageRequest.Builder(LocalContext.current)
+						.data(article.image ?: "")
+						.scale(Scale.FILL)
+						.build(),
+					contentDescription = null,
+					contentScale = ContentScale.Crop,
+					modifier = Modifier.fillMaxSize()
+				)
+
+				Box(
+					modifier = Modifier
+						.fillMaxSize()
+						.background(
+							brush = Brush.verticalGradient(
+								colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.6f))
+							)
+						)
+				)
+
+				Text(
+					text = article.title ?: "",
+					color = Color.White,
+					maxLines = 2,
+					modifier = Modifier
+						.align(Alignment.BottomStart)
+						.padding(16.dp),
+					style = MaterialTheme.typography.titleMedium
+				)
+			}//: Box
+		}//: Card
 	}
 
-}
-
-@Composable
-private fun CardView(article: GArticle) {
-	Card(
-		modifier = Modifier
-			.fillMaxWidth()
-			.height(230.dp)
-			.padding(10.dp),
-		shape = RoundedCornerShape(corner = CornerSize(15.dp))
-	) {
-		Box(contentAlignment = Alignment.BottomStart) {
-			AsyncImage(
-				model = ImageRequest.Builder(LocalContext.current)
-					.data(article.image ?: "")
-					.scale(Scale.FILL)
-					.build(),
-				contentDescription = null,
-				contentScale = ContentScale.Crop,
-				modifier = Modifier.fillMaxSize()
-			)
-
-			Box(
-				modifier = Modifier
-					.fillMaxSize()
-					.background(
-						brush = Brush.verticalGradient(
-							colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.6f))
-						)
-					)
-			)
-
-			Text(
-				text = article.title ?: "",
-				color = Color.White,
-				maxLines = 2,
-				modifier = Modifier
-					.align(Alignment.BottomStart)
-					.padding(16.dp),
-				style = MaterialTheme.typography.titleMedium
-			)
-		}//: Box
-	}//: Card
 }
