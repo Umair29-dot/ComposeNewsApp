@@ -1,7 +1,7 @@
 package com.myapplication.presentation.main.common
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,11 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -48,10 +45,13 @@ fun ArticleCard(
 		modifier = Modifier
 			.fillMaxWidth()
 			.padding(all = 5.dp)
+			.border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+
 	) {
 		Row(
 			modifier = Modifier
 				.fillMaxWidth()
+				.padding(all = 5.dp)
 				.clickable {
 					onClick()
 				},
@@ -62,12 +62,7 @@ fun ArticleCard(
 				modifier = Modifier
 					.size(Dimens.ArticleImage)
 					.clip(
-						RoundedCornerShape(
-							topStart = 10.dp,
-							topEnd = 10.dp,
-							bottomStart = 10.dp,
-							bottomEnd = 10.dp
-						)
+						RoundedCornerShape(10.dp)
 					),
 				contentScale = ContentScale.Crop
 			)

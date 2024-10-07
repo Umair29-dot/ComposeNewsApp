@@ -18,13 +18,12 @@ class NewsRepositoryImplementation(
 	private val newsDao: NewsDao,
 	private val gNewsApi: GNewsApi
 ): NewsRepository {
-	override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
+	override fun getNews(): Flow<PagingData<Article>> {
 		return Pager(
 			config = PagingConfig(pageSize = 10),
 			pagingSourceFactory = {
 				NewsPagingSource(
-					newsApi = newsApi,
-					sources = sources.joinToString(",")
+					newsApi = newsApi
 				)
 			}
 		).flow

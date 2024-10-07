@@ -9,8 +9,8 @@ class GetNews(
 	private val newsRepository: NewsRepository
 ) {
 
-	operator fun invoke (sources: List<String>): Flow<PagingData<Article>> {
-		return newsRepository.getNews(sources)
+	operator fun invoke (): Flow<PagingData<Article>> {
+		return newsRepository.getNews()
 	}
 
 }

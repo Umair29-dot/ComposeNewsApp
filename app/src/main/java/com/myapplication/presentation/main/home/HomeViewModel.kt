@@ -49,7 +49,7 @@ class HomeViewModel @Inject constructor(
 	fun getNews() {
 		viewModelScope.launch {
 			try {
-				useCases.getNews(sources = listOf("bbc-news", "abc-news", "al-jazeera"))
+				useCases.getNews()
 					.cachedIn(viewModelScope)
 					.collect {
 						_news.value = it

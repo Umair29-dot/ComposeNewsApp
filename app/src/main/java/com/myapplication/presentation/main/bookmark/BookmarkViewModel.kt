@@ -23,13 +23,13 @@ class BookmarkViewModel @Inject constructor(
 		getArticles()
 	}*/
 
-	/*private fun getArticles() {
+	private fun getArticles() {
 		viewModelScope.launch {
 			newsUseCases.getArticles().collect {
 				_articles.value = it
 			}
 		}
-	}*/
+	}
 
 	fun deleteArticle(article: Article) {
 		viewModelScope.launch {

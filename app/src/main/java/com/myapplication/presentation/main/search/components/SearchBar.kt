@@ -14,9 +14,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.colorResource
@@ -34,6 +37,11 @@ fun SearchBar(
 	onClick: () -> Unit = {},
 	onSearchChange: (String) -> Unit = {}
 ) {
+
+	var isHintDisplayed =  remember {
+		mutableStateOf(true)
+	}
+
 	BasicTextField(
 		value = text,
 		onValueChange = {
@@ -54,7 +62,10 @@ fun SearchBar(
 			.padding(10.dp)
 			.clip(RoundedCornerShape(20.dp))
 			.background(color = colorResource(id = R.color.category_background))
-			.padding(horizontal = 5.dp, vertical = 12.dp),
+			.padding(vertical = 8.dp)
+			.onFocusChanged {
+				isHintDisplayed.value = !it.isFocused
+			},
 		decorationBox = { innerTextField ->
 			Row(
 				verticalAlignment = Alignment.CenterVertically
@@ -64,12 +75,13 @@ fun SearchBar(
 						id = R.drawable.baseline_search_24
 					),
 					contentDescription = null,
-					tint = Color.Gray.copy(alpha = 0.9f)
+					tint = Color.Gray.copy(alpha = 0.9f),
+					modifier = Modifier.padding(horizontal = 5.dp)
 				)
 
 				Spacer(modifier = Modifier.width(10.dp))
 
-				if (text.isBlank()) {
+				if (isHintDisplayed.value) {
 					Text(
 						text = stringResource(id = R.string.search),
 						style = MaterialTheme.typography.labelLarge.copy(color = Color.Gray.copy(alpha = 0.9f))
