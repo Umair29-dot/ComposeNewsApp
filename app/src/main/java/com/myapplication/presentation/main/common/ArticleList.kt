@@ -21,8 +21,8 @@ fun ArticleList(
 		contentPadding = PaddingValues(all = Dimens.SmallPadding1)
 	) {
 		items(count = articles.size) {
-			articles[it]?.let {
-				ArticleCard(article = it) {
+			articles[it].let {
+				ArticleListItem(article = it) {
 					onClick(it)
 				}
 			}
@@ -42,7 +42,7 @@ fun ArticleList(
 		) {
 			items(count = articles.itemCount) {
 				articles[it]?.let {
-					ArticleCard(article = it) {
+					ArticleListItem(article = it) {
 						onClick(it)
 					}
 				}

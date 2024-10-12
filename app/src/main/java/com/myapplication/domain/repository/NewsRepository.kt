@@ -19,4 +19,5 @@ interface NewsRepository {
 	suspend fun upsertGArticle(article: GArticle): Long
 	suspend fun deleteArticle(article: Article)
 	fun getArticles(): Flow<List<Article>>
+	fun getGArticles(): Flow<List<GArticle>>
 }

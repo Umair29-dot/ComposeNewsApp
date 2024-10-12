@@ -1,10 +1,6 @@
 package com.myapplication.presentation.main.search
 
 import android.widget.Toast
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -32,13 +27,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.myapplication.domain.model.news.newsapi.Article
 import com.myapplication.presentation.Dimens
 import com.myapplication.presentation.SharedViewModel
-import com.myapplication.presentation.main.common.ArticleCard
-import com.myapplication.presentation.main.common.ArticleList
 import com.myapplication.presentation.main.common.TitleSection
 import com.myapplication.presentation.main.search.components.CategoriesList
 import com.myapplication.presentation.main.search.components.SearchBar
 import com.myapplication.presentation.main.search.components.SearchListItem
-import com.myapplication.presentation.navgraph.Route
 
 @Composable
 fun SearchScreen(

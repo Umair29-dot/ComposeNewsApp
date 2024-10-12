@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,7 +34,7 @@ import com.myapplication.presentation.Dimens
 import com.myapplication.util.extractDate
 
 @Composable
-fun ArticleCard(
+fun ArticleListItem(
 	article: Article,
 	onClick: () -> Unit = {}
 ) {
@@ -119,7 +118,7 @@ fun ArticleCard(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-	ArticleCard(
+	ArticleListItem(
 		article = Article(
 			author = "Umair",
 			content = "Hello World",

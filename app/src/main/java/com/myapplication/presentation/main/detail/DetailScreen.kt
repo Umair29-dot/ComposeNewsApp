@@ -17,6 +17,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -49,13 +51,16 @@ import com.myapplication.presentation.main.common.BackNavigation
 import com.myapplication.presentation.main.detail.components.DetailOptions
 import com.myapplication.presentation.main.search.SearchViewModel
 import com.myapplication.presentation.navgraph.Route
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
 fun DetailScreen(
 	article: CommonArticle?,
 	navController: NavController,
-	viewModel: DetailViewModel
+	viewModel: DetailViewModel,
+	snackbarHostState: SnackbarHostState
 ) {
 	val context = LocalContext.current
 
@@ -64,7 +69,8 @@ fun DetailScreen(
 			article = article,
 			navController = navController,
 			context = context,
-			viewModel = viewModel
+			viewModel = viewModel,
+			snackbarHostState =  snackbarHostState
 		)
 	} else {
 		ErrorView()
@@ -76,7 +82,8 @@ private fun DetailScreenContent(
 	article: CommonArticle,
 	navController: NavController,
 	context: Context,
-	viewModel: DetailViewModel
+	viewModel: DetailViewModel,
+	snackbarHostState:  SnackbarHostState
 ) {
 	Box(
 		modifier = Modifier
@@ -171,7 +178,7 @@ private fun DetailScreenContent(
 		LaunchedEffect(true) {
 			viewModel.result.collectLatest {
 				if (it != -1L) {
-					Toast.makeText(context, "Article Saved", Toast.LENGTH_SHORT).show()
+					snackbarHostState.showSnackbar(message = "Article Saved")
 				}
 			}
 		}
@@ -193,6 +200,7 @@ private fun Preview() {
 			urlToImage = "https://i-invdn-com.investing.com/news/indicatornews_4_800x533_L_1413112066.jpg"
 		),
 		navController = rememberNavController(),
-		viewModel = hiltViewModel()
+		viewModel = hiltViewModel(),
+		snackbarHostState = SnackbarHostState()
 	)
 }

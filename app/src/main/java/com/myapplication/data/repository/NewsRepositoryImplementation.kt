@@ -65,4 +65,8 @@ class NewsRepositoryImplementation(
 	override fun getArticles(): Flow<List<Article>> {
 		return newsDao.getArticles()
 	}
+
+	override fun getGArticles(): Flow<List<GArticle>> {
+		return newsDao.getGArticles()
+	}
 }
