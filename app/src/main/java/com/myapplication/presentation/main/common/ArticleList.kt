@@ -37,8 +37,7 @@ fun ArticleList(
 	val handlePagingResult = HandlePagingResult(articles = articles)
 	if(handlePagingResult) {
 		LazyColumn(
-			modifier = Modifier.fillMaxSize(),
-			contentPadding = PaddingValues(all = Dimens.SmallPadding1)
+			modifier = Modifier.fillMaxSize()
 		) {
 			items(count = articles.itemCount) {
 				articles[it]?.let {

@@ -51,7 +51,6 @@ fun HorizontalCarousel(
 			modifier = Modifier
 				.fillMaxWidth()
 				.height(230.dp)
-				.padding(10.dp)
 				.clickable {
 						   onClick(article)
 				},

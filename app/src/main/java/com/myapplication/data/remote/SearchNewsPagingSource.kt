@@ -8,7 +8,6 @@ import com.myapplication.util.Constants
 
 class SearchNewsPagingSource(
 	private val newsApi: NewsApi,
-	private val sources: String,
 	private val searchQuery: String
 ): PagingSource<Int, Article>() {
 
@@ -18,7 +17,7 @@ class SearchNewsPagingSource(
 		val page = params.key ?: 1
 
 		return try {
-			val newsResponse = newsApi.searchNews(searchQuery = searchQuery, page = page, sources = sources, apiKey = BuildConfig.Api_KEY)
+			val newsResponse = newsApi.searchNews(searchQuery = searchQuery, page = page, apiKey = BuildConfig.Api_KEY)
 			totalNewsCount += newsResponse.articles.size
 			val articles = newsResponse.articles.distinctBy { it.title } //remove duplicate data from list
 			LoadResult.Page(

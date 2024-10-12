@@ -60,10 +60,14 @@ fun HomeScreen(
 
 		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
-		HorizontalCarousel(gArticles = gArticles, pagerState = pagerState, onClick = {
+		HorizontalCarousel(
+			gArticles = gArticles,
+			pagerState = pagerState,
+			onClick = {
 			sharedViewModel.setArticle(it)
 			navController.navigate(Route.DetailScreen.route)
-		})
+		    }
+		)
 
 		CompPageIndicator(
 			pageSize = pagerState.pageCount,
@@ -79,7 +83,7 @@ fun HomeScreen(
 			screenDescription = null,
 			style = MaterialTheme
 				.typography.headlineSmall
-				.copy(fontWeight = FontWeight.Bold, color = Color.Blue.copy(alpha = 0.7f))
+				.copy(fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
 		)
 
 		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))

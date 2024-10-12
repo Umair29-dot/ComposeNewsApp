@@ -31,6 +31,7 @@ import com.myapplication.presentation.main.common.TitleSection
 import com.myapplication.presentation.main.search.components.CategoriesList
 import com.myapplication.presentation.main.search.components.SearchBar
 import com.myapplication.presentation.main.search.components.SearchListItem
+import com.myapplication.presentation.navgraph.Route
 
 @Composable
 fun SearchScreen(
@@ -38,6 +39,7 @@ fun SearchScreen(
 	viewModel: SearchViewModel,
 	sharedViewModel: SharedViewModel
 ) {
+
 	val context = LocalContext.current
 	val articles: LazyPagingItems<Article> = viewModel.search.collectAsLazyPagingItems()
 	var searchValue = remember {
@@ -77,7 +79,9 @@ fun SearchScreen(
 
 		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
-		CategoriesList()
+		CategoriesList() { category ->
+			viewModel.searchNews(searchQuery = category.trim())
+		}
 
 		Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
 
@@ -87,18 +91,14 @@ fun SearchScreen(
 		) {
 			items(count = articles.itemCount) {
 				articles[it]?.let {
-					SearchListItem(article = it)
+					SearchListItem(article = it) {
+						sharedViewModel.setArticle(it)
+						navController.navigate(Route.DetailScreen.route)
+					}
 				}
 			}
 		}
-		/*ArticleList(
-			articles = articles,
-			onClick = {
-				sharedViewModel.setArticle(it)
-				navController.navigate(Route.DetailScreen.route)
-			}
-		)*/
-	}//: Column
+	}
 }
 
 @Preview(showBackground = true)

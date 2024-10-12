@@ -1,6 +1,7 @@
 package com.myapplication.presentation.main.search.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,7 +44,7 @@ import com.myapplication.presentation.Dimens
 import com.myapplication.util.extractDate
 
 @Composable
-fun SearchListItem(article: Article) {
+fun SearchListItem(article: Article, onClick: (Article) -> Unit = {}) {
 		Column(
 			modifier = Modifier
 				.fillMaxWidth()
@@ -138,7 +139,9 @@ fun SearchListItem(article: Article) {
 						modifier = Modifier.fillMaxHeight().padding(20.dp),
 						verticalAlignment = Alignment.Bottom
 					) {
-						Button(onClick = { /*TODO*/ }) {
+						Button(onClick = {
+							onClick(article)
+						}) {
 							Row {
 								Text(text = "Read More",
 									modifier = Modifier.fillMaxWidth(),

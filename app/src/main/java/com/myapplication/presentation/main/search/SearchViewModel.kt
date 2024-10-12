@@ -30,7 +30,7 @@ class SearchViewModel @Inject constructor(
 	fun searchNews(searchQuery: String) {
 		viewModelScope.launch {
 			try {
-				useCases.getSearchNews(searchQuery = searchQuery, sources = listOf("bbc-news", "abc-news", "al-jazeera"))
+				useCases.getSearchNews(searchQuery = searchQuery)
 					.cachedIn(viewModelScope)
 					.collect {
 						_search.value = it

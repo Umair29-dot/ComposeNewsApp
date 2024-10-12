@@ -9,7 +9,7 @@ interface NewsRepository {
 
 	//NewsApi
 	fun getNews(): Flow<PagingData<Article>>  // PagingData comes from library
-	fun getSearchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>>
+	fun getSearchNews(searchQuery: String): Flow<PagingData<Article>>
 
 	//GNews
 	suspend fun getGNews(): List<GArticle>

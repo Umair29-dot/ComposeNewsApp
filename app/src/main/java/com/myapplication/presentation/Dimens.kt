@@ -24,9 +24,9 @@ object Dimens {
 	val LargePadding3 = 50.dp
 
 	val SelectedIndicatorWidth = 18.dp
-	val UnSelectedIndicatorWidth = 8.dp
+	val UnSelectedIndicatorWidth = 6.dp
 
-	val IndicatorHeight = 8.dp
+	val IndicatorHeight = 5.dp
 
 	val ArticleImage = 100.dp
 
