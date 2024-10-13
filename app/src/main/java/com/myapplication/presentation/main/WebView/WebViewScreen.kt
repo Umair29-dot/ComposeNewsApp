@@ -1,4 +1,4 @@
-package com.myapplication.presentation.main.detail
+package com.myapplication.presentation.main.WebView
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

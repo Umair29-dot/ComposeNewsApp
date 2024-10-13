@@ -54,6 +54,8 @@ import com.myapplication.presentation.navgraph.Route
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun DetailScreen(
@@ -122,7 +124,8 @@ private fun DetailScreenContent(
 
 				DetailOptions(
 					onBrowsingClick = {
-						navController.navigate(Route.WebViewScreen.route)
+						val url = URLEncoder.encode(article.url, StandardCharsets.UTF_8.toString()) //firstly, we have to encode the url then pass to nav
+						navController.navigate(Route.WebViewScreen.route+"/${url}")
 					},
 					onBookmarkClick = {
 						viewModel.saveArticle(article)

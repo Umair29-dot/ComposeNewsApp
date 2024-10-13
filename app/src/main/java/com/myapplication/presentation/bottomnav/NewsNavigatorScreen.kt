@@ -1,11 +1,11 @@
 package com.myapplication.presentation.bottomnav
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,23 +14,26 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.myapplication.R
 import com.myapplication.presentation.SharedViewModel
-import com.myapplication.presentation.main.detail.WebViewScreen
+import com.myapplication.presentation.main.WebView.WebViewScreen
 import com.myapplication.presentation.main.bookmark.BookmarkScreen
 import com.myapplication.presentation.main.bookmark.BookmarkViewModel
 import com.myapplication.presentation.main.detail.DetailScreen
 import com.myapplication.presentation.main.detail.DetailViewModel
-import com.myapplication.presentation.main.detail.components.TestViewModel
 import com.myapplication.presentation.main.home.HomeScreen
 import com.myapplication.presentation.main.home.HomeViewModel
 import com.myapplication.presentation.main.search.SearchScreen
 import com.myapplication.presentation.main.search.SearchViewModel
 import com.myapplication.presentation.navgraph.Route
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun NewsNavigatorScreen() {
@@ -105,8 +108,14 @@ fun NewsNavigatorScreen() {
 				DetailScreen(article = sharedViewModel.article, navController = navController, viewModel = viewModel, snackbarHostState = snackbarHostState)
 			}
 
-			composable(route = Route.WebViewScreen.route) {
-				WebViewScreen(url = "www.google.com")
+			composable(
+				route = Route.WebViewScreen.route+"/{articleUrl}",
+				arguments = listOf(navArgument("articleUrl") { type = NavType.StringType })
+			) { backStackEntry ->
+				backStackEntry.arguments?.getString("articleUrl")?.let{
+					val url = URLDecoder.decode(it, StandardCharsets.UTF_8.toString())
+					WebViewScreen(url = url)
+				}
 			}
 
 			composable(route = Route.BookmarkScreen.route) {
