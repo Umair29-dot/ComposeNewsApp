@@ -1,6 +1,7 @@
 package com.myapplication.domain.repository
 
 import androidx.paging.PagingData
+import com.myapplication.domain.model.news.CommonArticle
 import com.myapplication.domain.model.news.gnews.GArticle
 import com.myapplication.domain.model.news.newsapi.Article
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,8 @@ interface NewsRepository {
 	//Database
 	suspend fun upsertArticle(article: Article): Long
 	suspend fun upsertGArticle(article: GArticle): Long
-	suspend fun deleteArticle(article: Article)
+	suspend fun deleteArticle(article: Article): Int
+	suspend fun deleteGArticle(article: GArticle): Int
 	fun getArticles(): Flow<List<Article>>
 	fun getGArticles(): Flow<List<GArticle>>
 }

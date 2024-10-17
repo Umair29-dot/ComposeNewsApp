@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.myapplication.domain.model.news.newsapi.Article
 import com.myapplication.presentation.Dimens
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun ArticleList(

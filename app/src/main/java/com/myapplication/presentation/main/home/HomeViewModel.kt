@@ -21,10 +21,10 @@ class HomeViewModel @Inject constructor(
 
 	private val LOG = "homeViewModel"
 
-	private var _gNews = MutableStateFlow<List<GArticle>>(emptyList())
+	private var _gNews: MutableStateFlow<List<GArticle>> = MutableStateFlow(emptyList())
 	val gNews = _gNews.asStateFlow()
 
-	private var _news = MutableStateFlow<PagingData<Article>>(PagingData.empty())
+	private var _news: MutableStateFlow<PagingData<Article>> = MutableStateFlow(PagingData.empty())
 	val news = _news.asStateFlow()
 
 	init {

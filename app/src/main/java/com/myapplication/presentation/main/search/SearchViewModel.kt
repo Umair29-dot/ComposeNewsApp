@@ -20,7 +20,7 @@ class SearchViewModel @Inject constructor(
 
 	private val LOG = "searchViewModel"
 
-	private var _search = MutableStateFlow<PagingData<Article>>(PagingData.empty())
+	private var _search: MutableStateFlow<PagingData<Article>> = MutableStateFlow(PagingData.empty())
 	val search: StateFlow<PagingData<Article>> = _search
 
 	init {

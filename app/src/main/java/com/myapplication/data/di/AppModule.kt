@@ -16,6 +16,7 @@ import com.myapplication.domain.usecases.app_entry.AppEntryUseCases
 import com.myapplication.domain.usecases.app_entry.ReadAppEntry
 import com.myapplication.domain.usecases.app_entry.SaveAppEntry
 import com.myapplication.domain.usecases.news.DeleteArticle
+import com.myapplication.domain.usecases.news.DeleteGArticle
 import com.myapplication.domain.usecases.news.GetArticles
 import com.myapplication.domain.usecases.news.GetGArticles
 import com.myapplication.domain.usecases.news.GetGNews
@@ -78,6 +79,7 @@ object AppModule {
 			getSearchNews = GetSearchNews(newsRepository),
 			upsertArticle = UpsertArticle(newsRepository),
 			deleteArticle = DeleteArticle(newsRepository),
+			deleteGArticle = DeleteGArticle(newsRepository),
 			getArticles = GetArticles(newsRepository),
 			getGNews = GetGNews(newsRepository),
 			upsertGArticle = UpsertGArticle(newsRepository),

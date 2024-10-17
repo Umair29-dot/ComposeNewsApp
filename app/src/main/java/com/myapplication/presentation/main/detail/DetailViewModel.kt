@@ -27,7 +27,7 @@ class DetailViewModel @Inject constructor(
 
 	private val LOG = "DetailViewModel"
 
-	private var _result = MutableSharedFlow<Long>()
+	private var _result: MutableSharedFlow<Long> = MutableSharedFlow()
 	val result = _result.asSharedFlow()
 
 	fun saveArticle(article: CommonArticle) {

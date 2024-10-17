@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -54,6 +55,7 @@ import com.myapplication.presentation.navgraph.Route
 import com.myapplication.util.ResourceResponse
 import com.myapplication.util.extractDate
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -68,8 +70,9 @@ fun BookmarkScreen(
 	var showDeleteDialog = remember {
 		mutableStateOf(false)
 	}
+	var deleteArticle: CommonArticle? = null
 	val coroutineScope: CoroutineScope = rememberCoroutineScope()
-	val result = viewModel.result.collectAsStateWithLifecycle().value
+	val result = viewModel.savedArticles.collectAsStateWithLifecycle().value
 
 	Surface (
 		modifier = Modifier
@@ -111,6 +114,7 @@ fun BookmarkScreen(
 										navController.navigate(Route.DetailScreen.route)
 									},
 									onLongPress = { article ->
+										deleteArticle = article
 										showDeleteDialog.value = !showDeleteDialog.value
 									}
 								)
@@ -131,12 +135,23 @@ fun BookmarkScreen(
 			if (showDeleteDialog.value) {
 				DeleteDialog(
 					onDelete = {
-
+						showDeleteDialog.value = !showDeleteDialog.value
+						viewModel.deleteArticle(deleteArticle!!)
 					},
 					onDismiss = {
 						showDeleteDialog.value = !showDeleteDialog.value
 					}
 				)
+			}
+
+			LaunchedEffect(true) {
+				viewModel.articleDelete.collectLatest { result ->
+					if (result != -1) {
+						snackbarHostState.showSnackbar(message = "Article Deleted", actionLabel = "Undo", duration = SnackbarDuration.Long)
+					} else {
+						snackbarHostState.showSnackbar(message = "Ooops! something went wrong")
+					}
+				}
 			}
 		}//: Column
 	}//: Surface

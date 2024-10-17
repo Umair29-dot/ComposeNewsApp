@@ -100,12 +100,12 @@ private fun DetailScreenContent(
 			contentScale = ContentScale.Crop
 		)
 
-		BackNavigation(
+		/*BackNavigation(
 			modifier = Modifier.height(30.dp),
 			onBackClick = {
 				navController.navigateUp()
 			}
-		)
+		)*/
 
 		Column {
 			Spacer(

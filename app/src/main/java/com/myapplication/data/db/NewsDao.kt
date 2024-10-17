@@ -16,7 +16,7 @@ interface NewsDao {
 	suspend fun upsertArticle(article: Article): Long
 
 	@Delete
-	suspend fun deleteArticle(article: Article)
+	suspend fun deleteArticle(article: Article): Int
 
 	@Query("SELECT * FROM Article")
 	fun getArticles(): Flow<List<Article>>
@@ -27,7 +27,7 @@ interface NewsDao {
 	suspend fun upsertGArticle(article: GArticle): Long
 
 	@Delete
-	suspend fun deleteGArticle(article: GArticle)
+	suspend fun deleteGArticle(article: GArticle): Int
 
 	@Query("SELECT * FROM GArticle")
 	fun getGArticles(): Flow<List<GArticle>>

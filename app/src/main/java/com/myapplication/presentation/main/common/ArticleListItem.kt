@@ -44,7 +44,7 @@ fun ArticleListItem(
 		modifier = Modifier
 			.fillMaxWidth()
 			.padding(vertical = 5.dp)
-			.border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+			.border(1.dp, MaterialTheme.colorScheme.primary.copy(0.2f), RoundedCornerShape(8.dp))
 
 	) {
 		Row(

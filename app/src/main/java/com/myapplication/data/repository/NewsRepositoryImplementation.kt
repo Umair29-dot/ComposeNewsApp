@@ -8,6 +8,7 @@ import com.myapplication.data.remote.GNewsApi
 import com.myapplication.data.remote.NewsApi
 import com.myapplication.data.remote.NewsPagingSource
 import com.myapplication.data.remote.SearchNewsPagingSource
+import com.myapplication.domain.model.news.CommonArticle
 import com.myapplication.domain.model.news.gnews.GArticle
 import com.myapplication.domain.model.news.newsapi.Article
 import com.myapplication.domain.repository.NewsRepository
@@ -56,8 +57,12 @@ class NewsRepositoryImplementation(
 		return newsDao.upsertGArticle(article)
 	}
 
-	override suspend fun deleteArticle(article: Article) {
-		newsDao.deleteArticle(article)
+	override suspend fun deleteArticle(article: Article): Int {
+		return newsDao.deleteArticle(article)
+	}
+
+	override suspend fun deleteGArticle(article: GArticle): Int {
+		return newsDao.deleteGArticle(article)
 	}
 
 	override fun getArticles(): Flow<List<Article>> {

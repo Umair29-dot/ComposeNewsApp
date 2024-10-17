@@ -1,6 +1,5 @@
 package com.myapplication.presentation.onboarding.screen
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,6 +42,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun OnBoardingScreen(viewModel: OnBoardingViewModel, navController: NavController) {
 
+	val scope = rememberCoroutineScope()
 	val context = LocalContext.current
 	val pages = pages
 	val pagerState = rememberPagerState(initialPage = 0) {
@@ -53,7 +53,7 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel, navController: NavControlle
 			when(pagerState.currentPage) {
 				0 -> listOf("", "Next")
 			    1 -> listOf("Back", "Next")
-				2 -> listOf("Back", "Get Started")
+				2 -> listOf("", "Get Started")
 				else -> listOf("", "")
 			}
 		}
@@ -86,8 +86,6 @@ fun OnBoardingScreen(viewModel: OnBoardingViewModel, navController: NavControlle
 				Row(
 					verticalAlignment = Alignment.CenterVertically
 				) {
-					val scope = rememberCoroutineScope()
-
 					if (buttonState.value[0] != "") {
 						BackButton(title = buttonState.value[0]) {
 							if(pagerState.currentPage > 0) {
@@ -134,10 +132,11 @@ private fun BackButton(title: String, onClick: () -> Unit = {}) {
 		text = title,
 		color = Color.Gray,
 		modifier = Modifier
+			.padding(vertical = 5.dp)
 			.clickable {
 				onClick.invoke()
 			},
-		style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
+		style = MaterialTheme.typography.bodyMedium
 	)
 }
 

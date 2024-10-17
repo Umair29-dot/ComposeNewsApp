@@ -119,7 +119,8 @@ fun SearchListItem(article: Article, onClick: (Article) -> Unit = {}) {
 
 							Text(article.author ?: "",
 								color = Color.Gray,
-								style = MaterialTheme.typography.labelMedium
+								style = MaterialTheme.typography.labelMedium,
+								maxLines = 1
 							)
 						}
 					}
@@ -136,10 +137,12 @@ fun SearchListItem(article: Article, onClick: (Article) -> Unit = {}) {
 					Spacer(modifier = Modifier.height(5.dp))
 
 					Row(
-						modifier = Modifier.fillMaxHeight().padding(20.dp),
+						modifier = Modifier.fillMaxHeight(),
 						verticalAlignment = Alignment.Bottom
 					) {
-						Button(onClick = {
+						Button(
+							modifier = Modifier.padding(5.dp),
+							onClick = {
 							onClick(article)
 						}) {
 							Row {
