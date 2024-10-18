@@ -1,4 +1,4 @@
-# NewsWave app UI
+# App UI
 
 <img src="https://github.com/user-attachments/assets/5be9e923-145c-4c6c-b531-91a259bcce28" width=15% height=15%>
 <img src="https://github.com/user-attachments/assets/d6eb3fd9-485d-4c3b-837c-36249fdd55e4" width=15% height=15%>
